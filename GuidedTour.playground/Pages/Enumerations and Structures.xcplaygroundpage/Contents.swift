@@ -46,13 +46,13 @@ compareCards(Rank.jack, c2: Rank.ace)
 //:
 //: Use the `init?(rawValue:)` initializer to make an instance of an enumeration from a raw value.
 //:
-if let convertedRank = Rank(rawValue: 3) {
-    let threeDescription = convertedRank.simpleDescription()
+if let convertedRank = Rank(rawValue: 11) {
+    let cardDescription = convertedRank.simpleDescription()
 }
 
 //: The case values of an enumeration are actual values, not just another way of writing their raw values. In fact, in cases where there isn’t a meaningful raw value, you don’t have to provide one.
 //:
-enum Suit {
+enum Suit: Int {
     case spades, hearts, diamonds, clubs
     func simpleDescription() -> String {
         switch self {
@@ -66,10 +66,27 @@ enum Suit {
                 return "clubs"
         }
     }
+    func color() -> String {
+        switch self {
+        case .spades:
+            return "black"
+        case .clubs:
+            return "black"
+        case .diamonds:
+            return "red"
+        case .hearts:
+            return "red"
+        }
+    }
 }
 let hearts = Suit.hearts
 let heartsDescription = hearts.simpleDescription()
+print(hearts.color())
+print(Suit.spades.color())
 
+if let convertedSuit = Suit(rawValue: 3) {
+    let cardDescription = convertedSuit.simpleDescription()
+}
 //: - Experiment:
 //: Add a `color()` method to `Suit` that returns “black” for spades and clubs, and returns “red” for hearts and diamonds.
 //:
@@ -91,7 +108,6 @@ switch success {
     case let .failure(message):
         print("Failure...  \(message)")
 }
-
 //: - Experiment:
 //: Add a third case to `ServerResponse` and to the switch.
 //:
@@ -105,10 +121,25 @@ struct Card {
     func simpleDescription() -> String {
         return "The \(rank.simpleDescription()) of \(suit.simpleDescription())"
     }
+    
+    static func deck() -> [Card] {
+        var deck = [Card]()
+        var suitCount = 1
+        while let suit = Suit(rawValue: suitCount) {
+            var rankCount = 1
+            while let rank = Rank(rawValue: rankCount) {
+                deck.append(Card(rank: rank, suit: suit))
+                rankCount += 1
+            }
+            suitCount += 1
+        }
+        return deck
+    }
 }
 let threeOfSpades = Card(rank: .three, suit: .spades)
 let threeOfSpadesDescription = threeOfSpades.simpleDescription()
-
+let deck = Card.deck()
+var card3 = deck[3].simpleDescription()
 //: - Experiment:
 //: Add a method to `Card` that creates a full deck of cards, with one card of each combination of rank and suit.
 //:
