@@ -28,7 +28,6 @@ func compareCards(_ c1: Rank, c2: Rank) -> String {
     var output: String
 
     if (c1.rawValue > c2.rawValue) {
-        print("YO!")
         output = "\(c1.simpleDescription()) is higher than \(c2.simpleDescription())"
     } else if (c1.rawValue < c2.rawValue) {
         output = "\(c1.simpleDescription()) is lower than \(c2.simpleDescription())"
@@ -97,16 +96,20 @@ if let convertedSuit = Suit(rawValue: 3) {
 enum ServerResponse {
     case result(String, String)
     case failure(String)
+    case waiting(String)
 }
 
 let success = ServerResponse.result("6:00 am", "8:09 pm")
 let failure = ServerResponse.failure("Out of cheese.")
+let waiting = ServerResponse.waiting("...still waiting")
 
-switch success {
+switch waiting {
     case let .result(sunrise, sunset):
         print("Sunrise is at \(sunrise) and sunset is at \(sunset).")
     case let .failure(message):
-        print("Failure...  \(message)")
+        print("Failure: \(message)")
+    case let .waiting(message):
+        print("Be patient   \(message)")
 }
 //: - Experiment:
 //: Add a third case to `ServerResponse` and to the switch.
