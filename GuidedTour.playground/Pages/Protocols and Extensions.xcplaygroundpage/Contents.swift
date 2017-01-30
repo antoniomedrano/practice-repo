@@ -30,6 +30,30 @@ var b = SimpleStructure()
 b.adjust()
 let bDescription = b.simpleDescription
 
+
+enum SimpleEnumeration: ExampleProtocol {
+    case Basic, Adjusted
+    
+    var simpleDescription: String {
+        switch self {
+        case .Basic:
+            return "A simple Enumeration"
+        case .Adjusted:
+            return "A simple Enumeration [adjusted]"
+        }
+    }
+    
+    mutating func adjust()  {
+        self = SimpleEnumeration.Adjusted
+    }
+}
+
+var c = SimpleEnumeration.Basic
+c.simpleDescription
+c.adjust()
+c.simpleDescription
+
+
 //: - Experiment:
 //: Write an enumeration that conforms to this protocol.
 //:
