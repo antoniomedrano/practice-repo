@@ -70,6 +70,29 @@ extension Int: ExampleProtocol {
     }
  }
 print(7.simpleDescription)
+var seven: Int = 7
+print(seven.simpleDescription)
+seven.adjust()
+print(seven.simpleDescription)
+
+
+extension Double: ExampleProtocol {
+    var simpleDescription: String {
+        return "The number \(self)"
+    }
+    var absoluteValue: Double {
+        return abs(self)
+    }
+    mutating func adjust() {
+        self = self.rounded()   // NOTE: Swift 3 uses self.rounded(), rather than round(self) used in Swift 2
+    }
+}
+
+var double: Double = -12.34
+double.simpleDescription
+double.absoluteValue
+double.adjust()
+double.absoluteValue.simpleDescription
 
 //: - Experiment:
 //: Write an extension for the `Double` type that adds an `absoluteValue` property.
