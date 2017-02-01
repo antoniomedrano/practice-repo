@@ -37,9 +37,9 @@ func anyCommonElements<T: Sequence, U: Sequence>(_ lhs: T, _ rhs: U) -> Bool
 anyCommonElements([1, 2, 3], [3])
 
 
-func showCommonElements<T: Sequence, U: Sequence>(_ lhs: T, _ rhs: U) -> [Any]
+func showCommonElements<T: Sequence, U: Sequence>(_ lhs: T, _ rhs: U) -> [T.Iterator.Element]
     where T.Iterator.Element: Equatable, T.Iterator.Element == U.Iterator.Element {
-        var result:[Any] = []
+        var result:[T.Iterator.Element] = []
         for lhsItem in lhs {
             for rhsItem in rhs {
                 if lhsItem == rhsItem {
