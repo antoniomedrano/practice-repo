@@ -20,7 +20,7 @@ func send(job: Int, toPrinter printerName: String) throws -> String {
 //: There are several ways to handle errors. One way is to use `do`-`catch`. Inside the `do` block, you mark code that can throw an error by writing `try` in front of it. Inside the `catch` block, the error is automatically given the name `error` unless you give it a different name.
 //:
 do {
-    let printerResponse = try send(job: 1040, toPrinter: "Bi Sheng")
+    let printerResponse = try send(job: 1040, toPrinter: "Never Has Toner")
     print(printerResponse)
 } catch {
     print(error)
@@ -31,7 +31,31 @@ do {
 //:
 //: You can provide multiple `catch` blocks that handle specific errors. You write a pattern after `catch` just as you do after `case` in a switch.
 //:
+var smellSmoke = false  // make true to trigger first error
+var hasPaper = true  // make false to trigger second error
+var networkAvailable = true  // make false to trigger third error
+
+enum NetworkError: Error {
+    case unavailable
+}
+
+
 do {
+    // First error
+    if smellSmoke {
+        throw PrinterError.onFire
+    }
+    
+    // Second Error
+    if !hasPaper {
+        throw PrinterError.outOfPaper
+    }
+    
+    // Third Error
+    if !networkAvailable {
+        throw NetworkError.unavailable
+    }
+    
     let printerResponse = try send(job: 1440, toPrinter: "Gutenberg")
     print(printerResponse)
 } catch PrinterError.onFire {
